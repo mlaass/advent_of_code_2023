@@ -1000,6 +1000,7 @@ one269
 35vksqxhbnxk
 sixfdqttpskdnbksqxg9three6bqqpngfhz"""
 
+
 lines = data.split("\n")[1:]
 h = len(lines)
 numbers = [str(x) for x in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
@@ -1011,8 +1012,77 @@ def ffun(l):
 
 
 red = [ffun(l) for l in lines]
-print(red)
+# print(red)
 digits = [r[0] + r[-1] for r in red]
-print(digits)
+# print(digits)
 res = sum([int(d) for d in digits])
 print("res", res)
+# res1: 55123 correct
+
+# pt 2
+
+# data = """
+# two1nine
+# eightwothree
+# abcone2threexyz
+# xtwone3four
+# 4nineeightseven2
+# zoneight234
+# 7pqrstsixteen"""
+
+repl = [
+    ("nine", 9),
+    ("eight", 8),
+    ("seven", 7),
+    ("six", 6),
+    ("five", 5),
+    ("four", 4),
+    ("three", 3),
+    ("two", 2),
+    ("one", 1),
+]
+
+
+lines2 = data.split("\n")[1:]
+for j in range(len(lines2)):
+    l = lines2[j]
+    backwards = False
+    for i in range(len(l)):
+        if not backwards:
+            for r in repl:
+                if not backwards:
+                    if r[0] == l[i : i + len(r[0])]:
+                        # print("replace", r[0], str(r[1]))
+                        nl = l.replace(r[0], str(r[1]), 1)
+                        print(l, nl)
+                        l = nl
+                        lines2[j] = nl
+                        backwards = True
+    if backwards:
+        for i in reversed(range(len(l))):
+            if backwards:
+                for r in repl:
+                    if backwards:
+                        if r[0] == l[i : i + len(r[0])]:
+                            # print("bw replace", r[0], str(r[1]))
+                            # l = l.replace(r[0], str(r[1]), 1)
+                            nl = l[0:i] + str(r[1]) + l[i + len(r[0]) :]
+                            print(l, nl)
+                            l = nl
+                            lines2[j] = nl
+                            backwards = False
+
+
+red2 = [ffun(l) for l in lines2]
+# print(red2)
+
+digits2 = [r[0] + r[-1] for r in red2]
+print("\n".join([str(x) for x in zip(lines, red, digits, lines2, red2, digits2)]))
+diff = [x for x in zip(range(len(lines)), lines, red, digits, lines2, red2, digits2) if x[3] != x[6]]
+print(len(diff), "\n", "\n".join([str(x) for x in diff]))
+res2 = sum([int(d) for d in digits2])
+print("res2", res2)
+# res: 54751 too low
+# res: 55934 too high
+# res: 55242 wrong
+# res: 55254 wrong
