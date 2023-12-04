@@ -201,15 +201,14 @@ sum2 = sum([v[0] for v in nums])
 print("nums\n", nums)
 print("not_nums\n", not_nums)
 print("result", sum1, sum2)
-# res1: 548387
+# res1: 548387 not tried but wrong
 # res2: 549979 too big
 # res3: 545150 too big
 # res3: 538121 wrong
 # res3: 539713
 
+
 # part two
-
-
 def check_env_for_gear(x, y, paces=1, debug=False):
     if debug:
         print("x", max(0, x - 1), min(w - 1, x + paces + 1))
